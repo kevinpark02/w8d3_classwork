@@ -1,34 +1,35 @@
 // Array#myEach(callback)
-
-Array.prototype.myEach = function(callback) {
-
+Array.prototype.myEach = function(cb) {
     for(let i = 0; i < this.length; i++) {
-        callback(this[i]);
+        cb(this[i]);
     }
-}
+};
+
+// let a = ["a", "b", "c"];
+// a.myEach(ele => console.log(ele));
 
 // Array#myMap(callback)
+Array.prototype.myMap = function(cb) {
+    const res = [];
+    this.myEach(ele => cb(ele));
+};
 
-Array.prototype.myMap = function(callback) {
-    let mapped = [];
-    this.myEach((ele) => mapped.push(callback(ele)));
-    return mapped; 
-}
+// let a = ["a", "b", "c"];
+// a.myMap(ele => console.log(ele + "!"));
 
 // Array#myReduce(callback[, initialValue])
+Array.prototype.myReduce = function(cb, initialValue) {
+    let arr = this;
 
-Array.prototype.myReduce = function(callback, initialValue) {
-    let reducedValue; 
-    let arr;
-    
-    if(initialValue === undefined){
-        reducedValue = this[0];
-        arr = this.slice(1);
-    } else {
-        reducedValue = initialValue;
-        arr = this;
+    if (initialValue === undefined) {
+        initialValue = arr[0];
+        arr = arr.slice(1);
     }
 
-    arr.myEach((ele) => reducedValue = callback(reducedValue, ele));
-    return reducedValue;
+    let result = initialValue;
+    arr.myEach(ele => result = cb(result, ele));
+    return result;
 }
+
+let a = [1, 2, 3, 4, 5];
+console.log(a.myReduce((acc, el) => acc + el));
