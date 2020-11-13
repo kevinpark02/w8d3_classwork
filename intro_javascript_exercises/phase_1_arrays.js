@@ -1,40 +1,54 @@
 // Array#uniq
-
-Array.prototype.uniq = function() {
-    let res = [];
-    for(let i = 0; i < this.length; i ++){
-        if(!res.includes(this[i])){
-            res.push(this[i]);
+Array.prototype.unique = function() {
+    const res = [];
+    for (let i = 0; i < this.length; i++) {
+        if(!res.includes(this[i])) {
+            res.push(this[i])
         }
     }
-    return res
-}
+    return res;
+};
+
+// let a = [1,4,2,7,4,8,0,3,3,10];
+// console.log(a.unique());
+
 
 // Array#twoSum
-
 Array.prototype.twoSum = function() {
-    let pairs = [];
-    for(let i = 0; i < this.length-1; i ++) {
-        for(let j = i+1; j < this.length; j ++) {
-            if(this[i] + this[j] === 0){
-                pairs.push([i, j]);
+    const res = [];
+    for (let i = 0; i < this.length; i++) {
+        for (let j = i + 1; j < this.length; j++) {
+            if (this[i] + this[j] === 0){
+                res.push([i, j]);
             }
         }
     }
-    return pairs;
-}
+    return res;
+};
+
+// let b = [1, 2, -2, -11, -20, -10, 3, 0, 10, -1];
+// console.log(b.twoSum());
+
 
 // Array#transpose
 
 Array.prototype.transpose = function() {
-    // let transposed = new Array(this[0].length).fill(0).map(() => new Array(this.length).fill(0));
+    let newArr = [];
+    
 
-    let transposed = Array.from(Array(this[0].length), () => new Array(this.length));
+    for (let k = 0; k < this.length; k++) {
+        let row = new Array(this.length);
+        newArr.push(row);
+    }
 
-    for(let i = 0; i < this.length; i ++){
-        for(let j = 0; j < this[0].length ; j ++){
-            transposed[i][j] = this[j][i];
+    for (let i = 0; i < this.length; i++) {
+        for (let j = 0; j < this.length; j++) {
+            newArr[j][i] = this[i][j];       
         }
     }
-    return transposed;
+    return newArr;
 }
+
+// let c = [[1,2,3], [4,5,6], [7,8,9]];
+// console.log(c.transpose());
+
